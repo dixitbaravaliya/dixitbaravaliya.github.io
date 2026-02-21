@@ -31,9 +31,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Replace API Key
+      - name: Replace Secrets
         run: |
-          find ./ -type f -name 'wedding-coutdown.html' -exec sed -i "s|__GROQ_API_KEY__|${{ secrets.GROK_API_KEY }}|g" {} +
+          find . -type f \( -name "wedding-coutdown.html" -o -name "main.js" \) -exec sed -i -e "s|__GROQ_API_KEY__|${{ secrets.GROK_API_KEY }}|g" -e 's|__GMAIL_API_ENCODED_BODY__|${{ secrets.GMAIL_API_ENCODED_BODY }}|g' {} +
           
       - name: Setup Pages
         uses: actions/configure-pages@v4

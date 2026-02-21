@@ -4,22 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ishita & Dixit | A Celebration of Love</title>
-
-    <!-- Luxury Serif & Clean Sans-Serif Fonts -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg viewBox='0 0 110 110' fill='%23D4AF37' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='26' cy='16' r='9'/%3E%3Cpath d='M 19 32 H 33 V 75 Q 33 84 42 84 H 65 Q 82 84 82 65 Q 82 46 65 46 H 54 V 72 H 42 V 32 H 65 Q 96 32 96 65 Q 96 98 65 98 H 38 Q 19 98 19 79 Z'/%3E%3C/svg%3E"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- GSAP for Professional High-End Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script>
       tailwind.config = {
         theme: {
@@ -38,17 +36,13 @@
         },
       };
     </script>
-
-    <!-- Instant Scroll Reset -->
     <script>
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
       }
       window.scrollTo(0, 0);
     </script>
-
     <style>
-      /* Base & Reset - Default to dark to prevent white flash before Tailwind loads */
       body,
       html {
         margin: 0;
@@ -56,10 +50,8 @@
         background-color: #1a1a1a;
         color: #faf9f6;
         overflow-x: hidden;
-        scroll-behavior: auto; /* Handled by smooth scrolling concepts */
+        scroll-behavior: auto;
       }
-
-      /* Hide scrollbar for cleaner look */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -70,8 +62,6 @@
         background: #8c7a6b;
         border-radius: 4px;
       }
-
-      /* Preloader */
       #preloader {
         position: fixed;
         top: 0;
@@ -86,8 +76,6 @@
         justify-content: center;
         flex-direction: column;
       }
-
-      /* Hardcoded Preloader Graphics to prevent unstyled flash */
       #preloader svg {
         width: 5rem;
         height: 5rem;
@@ -110,20 +98,16 @@
         color: #d4af37;
         margin-top: 1.5rem;
       }
-
-      /* Image Parallax Wrappers */
       .img-wrap {
         overflow: hidden;
         position: relative;
       }
       .img-wrap img {
         width: 100%;
-        height: 120%; /* Extra height for parallax */
+        height: 120%;
         object-fit: cover;
         transform-origin: center;
       }
-
-      /* Text Reveals */
       .reveal-overflow {
         overflow: hidden;
         display: inline-block;
@@ -133,8 +117,6 @@
         display: inline-block;
         transform: translateY(110%);
       }
-
-      /* Custom Button */
       .btn-luxury {
         position: relative;
         overflow: hidden;
@@ -161,10 +143,8 @@
     </style>
   </head>
   <body class="font-sans antialiased bg-luxury-light text-luxury-dark">
-    <!-- PRELOADER -->
     <div id="preloader">
       <div class="overflow-hidden flex items-center justify-center">
-        <!-- Uploaded 'iD' Logo -->
         <svg
           viewBox="0 0 110 110"
           class="w-20 h-20 md:w-24 md:h-24 text-luxury-gold fill-current preloader-text drop-shadow-lg"
@@ -184,14 +164,11 @@
         </p>
       </div>
     </div>
-
-    <!-- HEADER / NAVIGATION (Smart Floating Pill - Auto Hides on Scroll) -->
     <header
       id="main-header"
       class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] md:w-auto md:min-w-[400px] z-50 rounded-full border border-white/10 bg-luxury-dark/60 backdrop-blur-xl shadow-2xl py-2.5 px-5 flex justify-between items-center text-luxury-light will-change-transform"
     >
       <div class="flex items-center gap-3 md:gap-4 group cursor-pointer">
-        <!-- Animated iD Logo -->
         <svg
           viewBox="0 0 110 110"
           class="w-8 h-8 md:w-10 md:h-10 text-luxury-gold fill-current drop-shadow-md transition-transform duration-700 group-hover:scale-110 shrink-0"
@@ -202,7 +179,6 @@
             d="M 19 32 H 33 V 75 Q 33 84 42 84 H 65 Q 82 84 82 65 Q 82 46 65 46 H 54 V 72 H 42 V 32 H 65 Q 96 32 96 65 Q 96 98 65 98 H 38 Q 19 98 19 79 Z"
           />
         </svg>
-
         <div class="flex flex-col justify-center">
           <span
             class="font-serif text-sm md:text-lg tracking-[0.15em] text-white/95 uppercase leading-none mb-1"
@@ -216,8 +192,6 @@
           </span>
         </div>
       </div>
-
-      <!-- Date Split Format -->
       <div
         class="text-[7px] md:text-[9px] uppercase tracking-[0.2em] font-medium opacity-80 text-right shrink-0 border-l border-luxury-gold/30 pl-3 md:pl-5 ml-2"
       >
@@ -225,13 +199,10 @@
         <span id="header-date-year" class="block text-luxury-gold mt-1"></span>
       </div>
     </header>
-
-    <!-- HERO SECTION -->
     <section
       class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-dark"
       id="hero"
     >
-      <!-- Parallax Background -->
       <div class="absolute inset-0 img-wrap opacity-60 w-full h-full">
         <img
           src="../images/id_photos/IMG_4760_1.jpg"
@@ -239,8 +210,6 @@
           class="hero-bg object-top"
         />
       </div>
-
-      <!-- Hero Content -->
       <div
         class="relative z-10 text-center text-luxury-light w-full px-4 mt-10"
       >
@@ -269,7 +238,6 @@
           </h1>
         </div>
       </div>
-
       <div
         class="absolute bottom-10 left-1/2 -translate-x-1/2 text-luxury-light flex flex-col items-center opacity-70 scroll-indicator"
       >
@@ -283,8 +251,6 @@
         </div>
       </div>
     </section>
-
-    <!-- COUNTDOWN SECTION -->
     <section
       class="py-24 bg-luxury-dark text-luxury-light relative z-20 border-t border-white/10"
       id="countdown"
@@ -342,8 +308,6 @@
         </div>
       </div>
     </section>
-
-    <!-- INTRO STORY SECTION -->
     <section class="py-32 md:py-48 px-6 bg-luxury-light relative z-20">
       <div class="max-w-4xl mx-auto text-center">
         <div class="reveal-overflow mb-8">
@@ -356,7 +320,6 @@
             >
           </h2>
         </div>
-
         <div
           id="intro-story-text"
           class="w-full max-w-2xl mx-auto space-y-6 mt-12 text-gray-600 font-light leading-relaxed story-text opacity-0 transform translate-y-10"
@@ -374,13 +337,10 @@
         </div>
       </div>
     </section>
-
-    <!-- THE COUPLE SECTION -->
     <section class="py-20 bg-white">
       <div
         class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 lg:gap-32 items-center"
       >
-        <!-- Bride Image (Left) -->
         <div class="relative couple-block">
           <div
             class="img-wrap h-[60vh] md:h-[80vh] w-full rounded-t-full shadow-2xl"
@@ -407,8 +367,6 @@
             </p>
           </div>
         </div>
-
-        <!-- Groom Image (Right, slightly offset) -->
         <div class="relative couple-block mt-24 md:mt-48">
           <div class="img-wrap h-[60vh] md:h-[80vh] w-full shadow-2xl">
             <img
@@ -435,8 +393,6 @@
         </div>
       </div>
     </section>
-
-    <!-- OUR JOURNEY TIMELINE SECTION -->
     <section
       class="py-32 bg-luxury-dark text-luxury-light relative z-20 overflow-hidden"
     >
@@ -451,14 +407,10 @@
             Our Journey
           </h2>
         </div>
-
         <div class="relative">
-          <!-- Center Line (Desktop) / Left Line (Mobile) -->
           <div
             class="absolute left-[15px] md:left-1/2 top-0 bottom-0 w-[1px] bg-luxury-gold/30 md:-translate-x-1/2"
           ></div>
-
-          <!-- Timeline Milestone 1 -->
           <div
             class="relative flex flex-col md:flex-row justify-between items-start md:items-center mb-20 journey-item group"
           >
@@ -477,7 +429,6 @@
                 was the beginning of something truly special.
               </p>
             </div>
-            <!-- Golden Dot -->
             <div
               class="absolute left-0 md:left-1/2 w-[30px] h-[30px] rounded-full bg-luxury-dark border border-luxury-gold md:-translate-x-1/2 flex items-center justify-center z-10"
             >
@@ -487,8 +438,6 @@
             </div>
             <div class="md:w-5/12 hidden md:block"></div>
           </div>
-
-          <!-- Timeline Milestone 2 -->
           <div
             class="relative flex flex-col md:flex-row-reverse justify-between items-start md:items-center mb-20 journey-item group"
           >
@@ -507,7 +456,6 @@
                 the joyful journey ahead.
               </p>
             </div>
-            <!-- Golden Dot -->
             <div
               class="absolute left-0 md:left-1/2 w-[30px] h-[30px] rounded-full bg-luxury-dark border border-luxury-gold md:-translate-x-1/2 flex items-center justify-center z-10"
             >
@@ -517,8 +465,6 @@
             </div>
             <div class="md:w-5/12 hidden md:block"></div>
           </div>
-
-          <!-- Timeline Milestone 3 -->
           <div
             id="milestone-3"
             class="relative flex flex-col md:flex-row justify-between items-start md:items-center journey-item group"
@@ -538,7 +484,6 @@
                 our upcoming forever.
               </p>
             </div>
-            <!-- Golden Dot -->
             <div
               class="absolute left-0 md:left-1/2 w-[30px] h-[30px] rounded-full bg-luxury-dark border border-luxury-gold md:-translate-x-1/2 flex items-center justify-center z-10"
             >
@@ -548,8 +493,6 @@
             </div>
             <div class="md:w-5/12 hidden md:block"></div>
           </div>
-
-          <!-- Timeline Milestone 4 (The Wedding Day - Hidden until countdown ends) -->
           <div
             id="wedding-milestone"
             class="relative flex flex-col md:flex-row-reverse justify-between items-start md:items-center hidden journey-item group"
@@ -569,7 +512,6 @@
                 beautiful chapter of our lives.
               </p>
             </div>
-            <!-- Golden Dot -->
             <div
               class="absolute left-0 md:left-1/2 w-[30px] h-[30px] rounded-full bg-luxury-dark border border-luxury-gold md:-translate-x-1/2 flex items-center justify-center z-10"
             >
@@ -582,8 +524,6 @@
         </div>
       </div>
     </section>
-
-    <!-- RSVP SECTION -->
     <section id="rsvp-section" class="py-32 bg-[#EBE7E0]">
       <div class="max-w-3xl mx-auto px-6 text-center">
         <h2 class="font-serif text-5xl md:text-7xl mb-6 rsvp-title">
@@ -592,13 +532,17 @@
         <p id="rsvp-deadline" class="text-gray-600 font-light mb-12 rsvp-title">
           Kindly respond by November 1st, 2026.
         </p>
-
-        <!-- Success Message Moved OUTSIDE the form so it doesn't get hidden -->
-        <div id="form-message-success" style="display: none;" class="text-luxury-dark font-serif text-3xl md:text-4xl py-12">
-          Thank you! Your RSVP has been beautifully received.<br>
-          <span class="text-xs font-sans font-medium text-luxury-gold tracking-[0.2em] uppercase mt-6 block">We can't wait to celebrate with you</span>
+        <div
+          id="form-message-success"
+          style="display: none"
+          class="text-luxury-dark font-serif text-3xl md:text-4xl py-12"
+        >
+          Thank you! Your RSVP has been beautifully received.<br />
+          <span
+            class="text-xs font-sans font-medium text-luxury-gold tracking-[0.2em] uppercase mt-6 block"
+            >We can't wait to celebrate with you</span
+          >
         </div>
-
         <form id="rsvpForm" class="space-y-8 text-left rsvp-form" method="post">
           <div class="grid md:grid-cols-2 gap-8">
             <div class="border-b border-gray-400 pb-2 relative group">
@@ -636,8 +580,6 @@
               ></span>
             </div>
           </div>
-
-          <!-- AI-Powered Message Section -->
           <div class="border-b border-gray-400 pb-2 relative group mt-8">
             <label
               class="text-xs uppercase tracking-widest text-gray-500 block mb-2 flex justify-between items-end"
@@ -658,8 +600,6 @@
               class="absolute bottom-0 left-0 w-0 h-[1px] bg-luxury-dark transition-all duration-300 group-hover:w-full"
             ></span>
           </div>
-
-          <!-- AI Magic Buttons -->
           <div
             class="flex flex-wrap gap-3 mt-4 justify-start ai-btn-group items-center"
           >
@@ -689,31 +629,30 @@
               ✨ Heartfelt
             </button>
           </div>
-          
           <div class="pt-8 text-center">
-              <div id="form-message-warning" style="display: none;" class="text-red-500 mb-4"></div>
-              <button
-                type="submit"
-                class="btn-luxury border border-luxury-dark text-luxury-dark px-12 py-4 text-xs uppercase tracking-[0.2em] font-medium z-10 cursor-pointer"
-              >
-                <span class="submitting"></span>
-                <span>Send RSVP</span>
-              </button>
-            </div>
+            <div
+              id="form-message-warning"
+              style="display: none"
+              class="text-red-500 mb-4"
+            ></div>
+            <button
+              type="submit"
+              class="btn-luxury border border-luxury-dark text-luxury-dark px-12 py-4 text-xs uppercase tracking-[0.2em] font-medium z-10 cursor-pointer"
+            >
+              <span class="submitting"></span>
+              <span>Send RSVP</span>
+            </button>
+          </div>
         </form>
       </div>
     </section>
-
-    <!-- FOOTER -->
     <footer
       class="py-16 bg-luxury-dark text-center text-luxury-light opacity-95"
     >
       <div
         class="flex flex-col items-center justify-center mb-10 group cursor-pointer"
       >
-        <!-- Classic Stacked Emblem Monogram -->
         <div class="flex flex-col items-center gap-5">
-          <!-- Footer Logo on Top -->
           <svg
             viewBox="0 0 110 110"
             class="w-16 h-16 md:w-20 md:h-20 text-luxury-gold fill-current drop-shadow-lg transition-transform duration-700 group-hover:-translate-y-2"
@@ -724,8 +663,6 @@
               d="M 19 32 H 33 V 75 Q 33 84 42 84 H 65 Q 82 84 82 65 Q 82 46 65 46 H 54 V 72 H 42 V 32 H 65 Q 96 32 96 65 Q 96 98 65 98 H 38 Q 19 98 19 79 Z"
             />
           </svg>
-
-          <!-- Full Names directly below with delicate gold separator -->
           <div
             class="flex items-center gap-4 border-t border-luxury-gold/30 pt-5"
           >
@@ -750,26 +687,15 @@
         We can't wait to celebrate with you
       </p>
     </footer>
-
-    <!-- GSAP ANIMATION LOGIC -->
     <script>
-      // Force scroll to top on refresh
       if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
       }
       window.scrollTo(0, 0);
-
-      // Register ScrollTrigger
       gsap.registerPlugin(ScrollTrigger);
-
-      // 1. PRELOADER & HERO REVEAL ANIMATION
       const initAnimations = () => {
         const tl = gsap.timeline();
-
-        // Prevent scrolling during load
         document.body.style.overflow = "hidden";
-
-        // Fade out preloader text
         tl.to(".preloader-text", {
           y: -30,
           opacity: 0,
@@ -778,7 +704,6 @@
           ease: "power3.inOut",
           delay: 0.5,
         })
-          // Slide preloader up
           .to(
             "#preloader",
             {
@@ -786,19 +711,17 @@
               duration: 1.2,
               ease: "power4.inOut",
               onComplete: () => {
-                document.body.style.overflow = "auto"; // restore scroll
+                document.body.style.overflow = "auto";
               },
             },
             "-=0.2",
           )
-          // Zoom out Hero Background slightly
           .fromTo(
             ".hero-bg",
             { scale: 1.2 },
             { scale: 1, duration: 2, ease: "power3.out" },
             "-=1",
           )
-          // Stagger reveal the Hero text
           .to(
             ".reveal-text",
             {
@@ -810,12 +733,7 @@
             "-=1.5",
           );
       };
-
-      // Initialize when window loads
       window.addEventListener("load", initAnimations);
-
-      // --- SMART FLOATING HEADER LOGIC ---
-      // Hides when scrolling down, reveals when scrolling up
       const showAnim = gsap
         .from("#main-header", {
           yPercent: -150,
@@ -824,22 +742,16 @@
           ease: "power3.out",
         })
         .progress(1);
-
       ScrollTrigger.create({
         start: "top top",
         end: 99999,
         onUpdate: (self) => {
-          // If scrolling down, reverse animation to hide. If up, play to show.
           self.direction === 1 ? showAnim.reverse() : showAnim.play();
         },
       });
-
-      // COUNTDOWN TIMER LOGIC
-      const weddingDateString = "January 28, 2027 13:00:00"; // Update your single source of truth here!
+      const weddingDateString = "January 28, 2027 13:00:00";
       const weddingDateObj = new Date(weddingDateString);
       const weddingDate = weddingDateObj.getTime();
-
-      // Dynamically set header date based on the weddingDate string
       const headerDayMonth = document.getElementById("header-date-day-month");
       const headerYear = document.getElementById("header-date-year");
       if (headerDayMonth && headerYear) {
@@ -848,23 +760,39 @@
         headerDayMonth.innerText = `${d} . ${m}`;
         headerYear.innerText = weddingDateObj.getFullYear();
       }
-
-      // Dynamically set RSVP deadline to 10 days before the wedding
       const rsvpDeadlineElement = document.getElementById("rsvp-deadline");
       if (rsvpDeadlineElement) {
-          const rsvpDateObj = new Date(weddingDateObj.getTime() - (10 * 24 * 60 * 60 * 1000));
-          const getOrdinalNum = (n) => n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
-          const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-          const formattedDate = `${monthNames[rsvpDateObj.getMonth()]} ${getOrdinalNum(rsvpDateObj.getDate())}, ${rsvpDateObj.getFullYear()}`;
-          rsvpDeadlineElement.innerText = `Kindly respond by ${formattedDate}.`;
+        const rsvpDateObj = new Date(
+          weddingDateObj.getTime() - 10 * 24 * 60 * 60 * 1000,
+        );
+        const getOrdinalNum = (n) =>
+          n +
+          (n > 0
+            ? ["th", "st", "nd", "rd"][
+                (n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10
+              ]
+            : "");
+        const monthNames = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        const formattedDate = `${monthNames[rsvpDateObj.getMonth()]} ${getOrdinalNum(rsvpDateObj.getDate())}, ${rsvpDateObj.getFullYear()}`;
+        rsvpDeadlineElement.innerText = `Kindly respond by ${formattedDate}.`;
       }
-
       const updateCountdown = () => {
         const now = new Date().getTime();
         const distance = weddingDate - now;
-
         if (distance < 0) {
-          // Replace countdown with marriage announcement
           document.getElementById("countdown").innerHTML = `
                     <div class="text-center py-8 px-4">
                         <p class="text-xs tracking-[0.4em] uppercase text-luxury-gold mb-4">The Wait is Over</p>
@@ -872,29 +800,21 @@
                         <p class="font-light text-sm text-gray-400 max-w-xl mx-auto leading-relaxed">Thank you to everyone who celebrated with us and made our special day so magical. Here's to our beautiful forever.</p>
                     </div>
                 `;
-
-          // Completely hide the RSVP section since the wedding has passed
           const rsvpSection = document.getElementById("rsvp-section");
           if (rsvpSection) {
             rsvpSection.style.display = "none";
           }
-
-          // Reveal the hidden Wedding Milestone in "Our Journey"
           const weddingMilestone = document.getElementById("wedding-milestone");
           const milestone3 = document.getElementById("milestone-3");
           if (weddingMilestone && milestone3) {
             weddingMilestone.classList.remove("hidden");
-            milestone3.classList.add("mb-20"); // Adds spacing between milestone 3 and 4
-            ScrollTrigger.refresh(); // Tells GSAP to recalculate animations for the newly revealed item
+            milestone3.classList.add("mb-20");
+            ScrollTrigger.refresh();
           }
-
-          // Update footer message
           const footerMessage = document.getElementById("footer-message");
           if (footerMessage) {
             footerMessage.innerText = "Thank you for celebrating with us";
           }
-
-          // Update Intro Story message to reflect being married
           const introStory = document.getElementById("intro-story-text");
           if (introStory) {
             introStory.innerHTML = `
@@ -902,30 +822,22 @@
                         <p>Thank you to our closest friends and family for your endless love, laughter, and support as we officially start this beautiful new chapter as husband and wife.</p>
                     `;
           }
-
-          // Update Hero Invitation Text
           const heroInviteText = document.getElementById("hero-invite-text");
           if (heroInviteText) {
             heroInviteText.innerText = "Welcome to our forever";
           }
-
-          // Update Couple Titles
           const brideTitle = document.getElementById("bride-title");
           if (brideTitle) brideTitle.innerText = "Forever His";
-
           const groomTitle = document.getElementById("groom-title");
           if (groomTitle) groomTitle.innerText = "Forever Hers";
-
           return;
         }
-
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor(
           (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
         );
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
         document.getElementById("cd-days").innerText =
           days < 10 ? "0" + days : days;
         document.getElementById("cd-hours").innerText =
@@ -935,13 +847,8 @@
         document.getElementById("cd-seconds").innerText =
           seconds < 10 ? "0" + seconds : seconds;
       };
-
       updateCountdown();
       setInterval(updateCountdown, 1000);
-
-      // 2. SCROLL ANIMATIONS (Triggered as user scrolls down)
-
-      // Countdown Section Reveal
       gsap.from(".countdown-element", {
         y: 40,
         opacity: 0,
@@ -953,10 +860,8 @@
           start: "top 85%",
         },
       });
-
-      // Hero Parallax effect on scroll
       gsap.to(".hero-bg", {
-        yPercent: 30, // Moves the image down slower than the scroll
+        yPercent: 30,
         ease: "none",
         scrollTrigger: {
           trigger: "#hero",
@@ -965,8 +870,6 @@
           scrub: true,
         },
       });
-
-      // Intro Story Text Reveal
       gsap.to(".story-text", {
         y: 0,
         opacity: 1,
@@ -977,15 +880,10 @@
           start: "top 85%",
         },
       });
-
-      // The Couple Section Parallax & Reveal
       const coupleBlocks = gsap.utils.toArray(".couple-block");
-
       coupleBlocks.forEach((block) => {
         const img = block.querySelector(".parallax-img");
         const text = block.querySelector(".couple-text");
-
-        // Image Parallax
         gsap.to(img, {
           yPercent: 20,
           ease: "none",
@@ -996,8 +894,6 @@
             scrub: true,
           },
         });
-
-        // Text Box slide in
         gsap.from(text, {
           y: 50,
           opacity: 0,
@@ -1009,8 +905,6 @@
           },
         });
       });
-
-      // Journey Timeline Reveal
       gsap.from(".journey-header", {
         y: 40,
         opacity: 0,
@@ -1022,7 +916,6 @@
           start: "top 80%",
         },
       });
-
       const journeyItems = gsap.utils.toArray(".journey-item");
       journeyItems.forEach((item) => {
         gsap.from(item, {
@@ -1036,8 +929,6 @@
           },
         });
       });
-
-      // RSVP Section Reveal
       gsap.from(".rsvp-title", {
         y: 30,
         opacity: 0,
@@ -1045,31 +936,25 @@
         stagger: 0.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: "#rsvp-section", // Updated to match ID for proper targeting if it exists
+          trigger: "#rsvp-section",
           start: "top 85%",
         },
       });
-
       gsap.from(".rsvp-form", {
         y: 50,
         opacity: 0,
         duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: "#rsvp-section", // Updated to match ID for proper targeting if it exists
+          trigger: "#rsvp-section",
           start: "top 80%",
         },
       });
-
-      // 3. GROQ API LLM INTEGRATION (AI MESSAGE ENHANCER)
-      const apiKey = "__GROQ_API_KEY__"; // This will be replaced by GitHub Actions
-
+      const apiKey = "__GROQ_API_KEY__";
       async function fetchGroqWithBackoff(prompt, retries = 5) {
         const delays = [1000, 2000, 4000, 8000, 16000];
-        // System prompt updated to force direct text generation like Gemini
         const systemPrompt =
           "You are helping a wedding guest rewrite their RSVP message to the couple, Ishita and Dixit. Rewrite their base message in the requested tone. Important: Speak directly as the guest. Do NOT start with 'Dear Ishita and Dixit' or 'To Ishita and Dixit'. Just provide the core message itself. Keep it elegant, warm, and strictly under 3 sentences. Output only the final message without quotes.";
-
         for (let i = 0; i < retries; i++) {
           try {
             const response = await fetch(
@@ -1081,7 +966,7 @@
                   Authorization: `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify({
-                  model: "llama-3.3-70b-versatile", // Updated to the fast, larger Llama model
+                  model: "llama-3.3-70b-versatile",
                   messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: prompt },
@@ -1089,7 +974,6 @@
                 }),
               },
             );
-
             if (!response.ok)
               throw new Error(`HTTP error! status: ${response.status}`);
             const result = await response.json();
@@ -1097,50 +981,39 @@
           } catch (error) {
             if (i === retries - 1) {
               console.error("Groq API failed after retries:", error);
-              return null; // Silent fail gracefully
+              return null;
             }
             await new Promise((res) => setTimeout(res, delays[i]));
           }
         }
       }
-
       async function enhanceMessage(tone) {
         const messageInput = document.getElementById("guest-message");
         const buttons = document.querySelectorAll(".ai-btn");
-
-        // Get current text or provide a default if empty
         let baseText = messageInput.value.trim();
         if (!baseText) {
           baseText = "Congratulations on your wedding day!";
         }
-
-        // UI Loading State
         const originalText = messageInput.value;
         messageInput.value = "✨ Whispering to the AI...";
         buttons.forEach((b) => {
           b.disabled = true;
           b.classList.add("opacity-50");
         });
-
-        // Call Groq
         const prompt = `Requested Tone: ${tone}. Original guest message to rewrite: "${baseText}"`;
         const aiResponse = await fetchGroqWithBackoff(prompt);
-
         if (aiResponse) {
           messageInput.value = aiResponse.trim();
         } else {
-          messageInput.value = originalText; // Fallback to original if error
+          messageInput.value = originalText;
           alert(
             "The AI is taking a quick break. Please try again or write your own lovely message!",
           );
         }
-
         buttons.forEach((b) => {
           b.disabled = false;
           b.classList.remove("opacity-50");
         });
-
-        // Trigger a tiny GSAP bounce on the text area to show it updated
         gsap.fromTo(
           messageInput,
           { scale: 0.98, opacity: 0.8 },
@@ -1150,13 +1023,11 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-      $(document).ready(function() {
+      $(document).ready(function () {
         async function getAccessToken() {
           let result;
-
           try {
             let encodedBody = "__GMAIL_API_ENCODED_BODY__";
-
             result = await $.ajax({
               type: "POST",
               url: "https://www.googleapis.com/oauth2/v4/token",
@@ -1165,13 +1036,11 @@
                 console.error("Error while getting access_token");
               },
             });
-
             return result;
           } catch (error) {
             console.log(error);
           }
         }
-
         async function getDataFromCloudflare() {
           let responce = "";
           let IpAddress = "";
@@ -1179,7 +1048,6 @@
             var requestOptions = {
               method: "GET",
             };
-
             await fetch("https://api.ipify.org/?format=json", requestOptions)
               .then((response) => response.text())
               .then((result) => {
@@ -1191,16 +1059,17 @@
               .then((response) => response.text())
               .then((result) => {
                 let responceJson = JSON.parse(result);
-
                 responceJson = new URLSearchParams(responceJson);
                 responceJson = decodeURIComponent(
-                  responceJson.toString().replaceAll("&", "\n")
+                  responceJson.toString().replaceAll("&", "\n"),
                 );
                 responce = responce.concat("\n", responceJson);
               })
               .catch((error) => console.log("error", error));
-
-            await fetch("https://www.cloudflare.com/cdn-cgi/trace", requestOptions)
+            await fetch(
+              "https://www.cloudflare.com/cdn-cgi/trace",
+              requestOptions,
+            )
               .then((response) => response.text())
               .then((result) => {
                 responce = responce.concat("\n", result);
@@ -1214,20 +1083,18 @@
           }
           return responce;
         }
-        
-        $('#rsvpForm').submit(function(e) {
+        $("#rsvpForm").submit(function (e) {
           e.preventDefault();
           var $form = $(this);
-          var $submit = $form.find('.submitting');
+          var $submit = $form.find(".submitting");
           var $submitButton = $form.find('button[type="submit"]');
           var waitText = "Submitting...";
-          
           $submit.css("display", "inline-block").text(waitText);
-          $submitButton.find('span:not(.submitting)').hide();
-
-
-          var mailBody = decodeURIComponent($form.serialize()).replaceAll("&", "\n");
-          
+          $submitButton.find("span:not(.submitting)").hide();
+          var mailBody = decodeURIComponent($form.serialize()).replaceAll(
+            "&",
+            "\n",
+          );
           var platfrom = "";
           var fromMobile = "";
           var network = "";
@@ -1243,19 +1110,21 @@
           } catch (error) {
             console.error(error);
           }
-
           mailBody = mailBody.concat("\n", `Platfrom=${platfrom}`);
           mailBody = mailBody.concat("\n", `FromMobile=${fromMobile}`);
           mailBody = mailBody.concat("\n", `Network=${network}`);
-
           getDataFromCloudflare().then((responce) => {
             mailBody = mailBody.concat("\n", responce);
             getAccessToken().then((result) => {
               if (!result || !result.access_token) {
-                  $('#form-message-warning').html("Could not get authorization to send email. Please try again.").fadeIn();
-                  $submit.css("display", "none").text("");
-                  $submitButton.find('span:not(.submitting)').show();
-                  return;
+                $("#form-message-warning")
+                  .html(
+                    "Could not get authorization to send email. Please try again.",
+                  )
+                  .fadeIn();
+                $submit.css("display", "none").text("");
+                $submitButton.find("span:not(.submitting)").show();
+                return;
               }
               $.ajax({
                 type: "POST",
@@ -1267,29 +1136,31 @@
                 dataType: "json",
                 data: JSON.stringify({
                   raw: btoa(
-                    `From: Admin <kingprobussiness@gmail.com>\nTo: Dixit Baravaliya <dixitbaravaliya7@gmail.com>\nSubject: New RSVP from Wedding Website\n\n${mailBody}`
+                    `From: Admin <kingprobussiness@gmail.com>\nTo: Dixit Baravaliya <dixitbaravaliya7@gmail.com>\nSubject: New RSVP from Wedding Website\n\n${mailBody}`,
                   ),
                 }),
                 success: function (msg) {
                   if (msg.id) {
-                    $('#form-message-warning').hide();
-                    $('#rsvpForm').fadeOut(500);
-                    $('#rsvp-deadline').fadeOut(500); // Hides the "Kindly respond by" date
+                    $("#form-message-warning").hide();
+                    $("#rsvpForm").fadeOut(500);
+                    $("#rsvp-deadline").fadeOut(500);
                     setTimeout(function () {
-                      $('#form-message-success').fadeIn(800); // Shows the beautiful success message
+                      $("#form-message-success").fadeIn(800);
                     }, 500);
                   } else {
-                    $('#form-message-warning').html("Something went wrong. Please try again.").fadeIn();
+                    $("#form-message-warning")
+                      .html("Something went wrong. Please try again.")
+                      .fadeIn();
                     $submit.css("display", "none").text("");
-                    $submitButton.find('span:not(.submitting)').show();
+                    $submitButton.find("span:not(.submitting)").show();
                   }
                 },
                 error: function () {
-                  $('#form-message-warning').html(
-                    "Something went wrong. Please try again."
-                  ).fadeIn();
+                  $("#form-message-warning")
+                    .html("Something went wrong. Please try again.")
+                    .fadeIn();
                   $submit.css("display", "none").text("");
-                  $submitButton.find('span:not(.submitting)').show();
+                  $submitButton.find("span:not(.submitting)").show();
                 },
               });
             });
