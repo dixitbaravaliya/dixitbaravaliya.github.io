@@ -1062,7 +1062,7 @@
       });
 
       // 3. GROQ API LLM INTEGRATION (AI MESSAGE ENHANCER)
-      const apiKey = "GROK_API_KEY"; // This will be replaced by GitHub Actions
+      const apiKey = "__GROQ_API_KEY__"; // This will be replaced by GitHub Actions
 
       async function fetchGroqWithBackoff(prompt, retries = 5) {
         const delays = [1000, 2000, 4000, 8000, 16000];
