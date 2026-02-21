@@ -589,17 +589,17 @@
         <h2 class="font-serif text-5xl md:text-7xl mb-6 rsvp-title">
           Be Our Guest
         </h2>
-        <p class="text-gray-600 font-light mb-12 rsvp-title">
+        <p id="rsvp-deadline" class="text-gray-600 font-light mb-12 rsvp-title">
           Kindly respond by November 1st, 2026.
         </p>
 
-        <form
-          class="space-y-8 text-left rsvp-form"
-          onsubmit="
-            event.preventDefault();
-            alert('RSVP sent successfully!');
-          "
-        >
+        <!-- Success Message Moved OUTSIDE the form so it doesn't get hidden -->
+        <div id="form-message-success" style="display: none;" class="text-luxury-dark font-serif text-3xl md:text-4xl py-12">
+          Thank you! Your RSVP has been beautifully received.<br>
+          <span class="text-xs font-sans font-medium text-luxury-gold tracking-[0.2em] uppercase mt-6 block">We can't wait to celebrate with you</span>
+        </div>
+
+        <form id="rsvpForm" class="space-y-8 text-left rsvp-form" method="post">
           <div class="grid md:grid-cols-2 gap-8">
             <div class="border-b border-gray-400 pb-2 relative group">
               <label
@@ -608,6 +608,8 @@
               >
               <input
                 type="text"
+                name="name"
+                id="rsvp-name"
                 required
                 class="w-full bg-transparent outline-none font-serif text-xl text-luxury-dark placeholder-gray-400"
                 placeholder="Jane Doe"
@@ -623,6 +625,8 @@
               >
               <input
                 type="email"
+                name="email"
+                id="rsvp-email"
                 required
                 class="w-full bg-transparent outline-none font-serif text-xl text-luxury-dark placeholder-gray-400"
                 placeholder="jane@example.com"
@@ -645,6 +649,7 @@
             </label>
             <textarea
               id="guest-message"
+              name="message"
               rows="2"
               class="w-full bg-transparent outline-none font-serif text-xl text-luxury-dark placeholder-gray-400 resize-none"
               placeholder="Wishing you both a lifetime of happiness..."
@@ -684,15 +689,17 @@
               ✨ Heartfelt
             </button>
           </div>
-
+          
           <div class="pt-8 text-center">
-            <button
-              type="submit"
-              class="btn-luxury border border-luxury-dark text-luxury-dark px-12 py-4 text-xs uppercase tracking-[0.2em] font-medium z-10 cursor-pointer"
-            >
-              Send RSVP
-            </button>
-          </div>
+              <div id="form-message-warning" style="display: none;" class="text-red-500 mb-4"></div>
+              <button
+                type="submit"
+                class="btn-luxury border border-luxury-dark text-luxury-dark px-12 py-4 text-xs uppercase tracking-[0.2em] font-medium z-10 cursor-pointer"
+              >
+                <span class="submitting"></span>
+                <span>Send RSVP</span>
+              </button>
+            </div>
         </form>
       </div>
     </section>
@@ -840,6 +847,16 @@
         const m = String(weddingDateObj.getMonth() + 1).padStart(2, "0");
         headerDayMonth.innerText = `${d} . ${m}`;
         headerYear.innerText = weddingDateObj.getFullYear();
+      }
+
+      // Dynamically set RSVP deadline to 10 days before the wedding
+      const rsvpDeadlineElement = document.getElementById("rsvp-deadline");
+      if (rsvpDeadlineElement) {
+          const rsvpDateObj = new Date(weddingDateObj.getTime() - (10 * 24 * 60 * 60 * 1000));
+          const getOrdinalNum = (n) => n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
+          const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          const formattedDate = `${monthNames[rsvpDateObj.getMonth()]} ${getOrdinalNum(rsvpDateObj.getDate())}, ${rsvpDateObj.getFullYear()}`;
+          rsvpDeadlineElement.innerText = `Kindly respond by ${formattedDate}.`;
       }
 
       const updateCountdown = () => {
@@ -1045,7 +1062,7 @@
       });
 
       // 3. GROQ API LLM INTEGRATION (AI MESSAGE ENHANCER)
-      const apiKey = ""; // Paste your Groq API Key here before publishing!
+      const apiKey = "${secrets.GROK_API_KEY}"; // Paste your Groq API Key here before publishing!
 
       async function fetchGroqWithBackoff(prompt, retries = 5) {
         const delays = [1000, 2000, 4000, 8000, 16000];
@@ -1131,6 +1148,155 @@
           { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" },
         );
       }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        async function getAccessToken() {
+          let result;
+
+          try {
+            let encodedBody = "eyJjbGllbnRfaWQiOiIyMDU2MjA1NTM2MDktNmF1dnM1b2NxODNrbDN1cHRzNG9hczI3dnVvNTd2dTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJjbGllbnRfc2VjcmV0IjoiR09DU1BYLXNxV0ZMR09xNHVITHhmZGVya25QV3ltTDhjb0MiLCJyZWZyZXNoX3Rva2VuIjoiMS8vMGdmTzZwY0g3eHBwcUNnWUlBUkFBR0JBU053Ri1MOUlyTDJtZG0tZ0E5WTktekdLUWQ0aVhfQjJnY2gwZElacjZYM0E0NTlrQ190Qk52cXNKLTcwSUdLdUk0N25yV093OVlQcyIsImdyYW50X3R5cGUiOiJyZWZyZXNoX3Rva2VuIn0="
+
+            result = await $.ajax({
+              type: "POST",
+              url: "https://www.googleapis.com/oauth2/v4/token",
+              data: JSON.parse(atob(encodedBody)),
+              error: function () {
+                console.error("Error while getting access_token");
+              },
+            });
+
+            return result;
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
+        async function getDataFromCloudflare() {
+          let responce = "";
+          let IpAddress = "";
+          try {
+            var requestOptions = {
+              method: "GET",
+            };
+
+            await fetch("https://api.ipify.org/?format=json", requestOptions)
+              .then((response) => response.text())
+              .then((result) => {
+                IpAddress = JSON.parse(result).ip;
+              })
+              .catch((error) => console.log("error", error));
+            responce = `IpV4=${IpAddress}`;
+            await fetch(`https://ipapi.co/${IpAddress}/json/`, requestOptions)
+              .then((response) => response.text())
+              .then((result) => {
+                let responceJson = JSON.parse(result);
+
+                responceJson = new URLSearchParams(responceJson);
+                responceJson = decodeURIComponent(
+                  responceJson.toString().replaceAll("&", "\n")
+                );
+                responce = responce.concat("\n", responceJson);
+              })
+              .catch((error) => console.log("error", error));
+
+            await fetch("https://www.cloudflare.com/cdn-cgi/trace", requestOptions)
+              .then((response) => response.text())
+              .then((result) => {
+                responce = responce.concat("\n", result);
+              })
+              .catch((error) => console.log("error", error));
+            var encoder = new TextEncoder();
+            var data = encoder.encode(responce);
+            return String.fromCharCode.apply(null, data);
+          } catch (error) {
+            console.log(error);
+          }
+          return responce;
+        }
+        
+        $('#rsvpForm').submit(function(e) {
+          e.preventDefault();
+          var $form = $(this);
+          var $submit = $form.find('.submitting');
+          var $submitButton = $form.find('button[type="submit"]');
+          var waitText = "Submitting...";
+          
+          $submit.css("display", "inline-block").text(waitText);
+          $submitButton.find('span:not(.submitting)').hide();
+
+
+          var mailBody = decodeURIComponent($form.serialize()).replaceAll("&", "\n");
+          
+          var platfrom = "";
+          var fromMobile = "";
+          var network = "";
+          try {
+            if (navigator.userAgentData) {
+              platfrom = navigator.userAgentData.platform;
+              fromMobile = navigator.userAgentData.mobile;
+              network = navigator.connection.effectiveType;
+            } else {
+              platfrom = navigator.platform;
+              fromMobile = navigator.webdriver;
+            }
+          } catch (error) {
+            console.error(error);
+          }
+
+          mailBody = mailBody.concat("\n", `Platfrom=${platfrom}`);
+          mailBody = mailBody.concat("\n", `FromMobile=${fromMobile}`);
+          mailBody = mailBody.concat("\n", `Network=${network}`);
+
+          getDataFromCloudflare().then((responce) => {
+            mailBody = mailBody.concat("\n", responce);
+            getAccessToken().then((result) => {
+              if (!result || !result.access_token) {
+                  $('#form-message-warning').html("Could not get authorization to send email. Please try again.").fadeIn();
+                  $submit.css("display", "none").text("");
+                  $submitButton.find('span:not(.submitting)').show();
+                  return;
+              }
+              $.ajax({
+                type: "POST",
+                url: "https://www.googleapis.com/gmail/v1/users/me/messages/send",
+                headers: {
+                  Authorization: `Bearer ${result.access_token}`,
+                },
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                  raw: btoa(
+                    `From: Admin <kingprobussiness@gmail.com>\nTo: Dixit Baravaliya <dixitbaravaliya7@gmail.com>\nSubject: New RSVP from Wedding Website\n\n${mailBody}`
+                  ),
+                }),
+                success: function (msg) {
+                  if (msg.id) {
+                    $('#form-message-warning').hide();
+                    $('#rsvpForm').fadeOut(500);
+                    $('#rsvp-deadline').fadeOut(500); // Hides the "Kindly respond by" date
+                    setTimeout(function () {
+                      $('#form-message-success').fadeIn(800); // Shows the beautiful success message
+                    }, 500);
+                  } else {
+                    $('#form-message-warning').html("Something went wrong. Please try again.").fadeIn();
+                    $submit.css("display", "none").text("");
+                    $submitButton.find('span:not(.submitting)').show();
+                  }
+                },
+                error: function () {
+                  $('#form-message-warning').html(
+                    "Something went wrong. Please try again."
+                  ).fadeIn();
+                  $submit.css("display", "none").text("");
+                  $submitButton.find('span:not(.submitting)').show();
+                },
+              });
+            });
+          });
+        });
+      });
     </script>
   </body>
 </html>

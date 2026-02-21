@@ -13,9 +13,12 @@
       }
       gtag("js", new Date());
 
-      gtag("config", "G-5FJJVESY9C");
+      gtag("config", "G-5FJJVESY9C", {
+        'anonymize_ip': true,
+        'page_load_time': true
+      });
     </script>
-    <title>Dixit &mdash; Baravaliya</title>
+    <title>Dixit Baravaliya - Software Developer</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -23,32 +26,44 @@
     />
     <meta
       name="description"
-      content="Dixit Baravaliya is a software developer based in India"
+      content="Dixit Baravaliya - Senior Full Stack Developer specializing in Liferay, React, and Java Development with expertise in enterprise solutions"
     />
-    <meta name="keywords" content="html, css, javascript, jquery" />
+    <meta name="keywords" content="senior full stack developer, Liferay developer, React developer, Java developer, enterprise solutions, web development, India" />
     <meta name="author" content="Dixit Baravaliya" />
+    <meta
+      name="theme-color"
+      content="#000000"
+    />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Dixit Baravaliya - Senior Full Stack Developer" />
+    <meta property="og:description" content="Senior Full Stack Developer specializing in Liferay, React, and Java Development with expertise in enterprise solutions" />
+    <meta property="og:image" content="images/about_me_pic2.webp" />
+    <meta property="og:url" content="https://dixitbaravaliya.github.io" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dixit Baravaliya - Senior Full Stack Developer" />
+    <meta name="twitter:description" content="Senior Full Stack Developer specializing in Liferay, React, and Java Development with expertise in enterprise solutions" />
+    <meta name="twitter:image" content="images/about_me_pic2.webp" />
+    
     <meta
       name="google-site-verification"
       content="SGCkrCEzO5eABlCUBg0OnxhdHow-voRJsAqVw1DNzIk"
     />
     <link
-      href="images/logo/dixit barvadiya fav icon black backgroung.svg"
-      rel="icon"
-    />
-    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
     />
-
     <link rel="stylesheet" href="css/style.css" />
     <script>
-      var getYearsOfExperience = function () {
-        var startDate = new Date("08/02/2020");
-        var currentDate = new Date();
-        var timeDifference = currentDate - startDate;
-        var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
-        yearsDifference = Math.round(yearsDifference * 10) / 10;
-        return yearsDifference;
+      const getYearsOfExperience = () => {
+        const startDate = new Date("2020-08-02");
+        const currentDate = new Date();
+        const timeDifference = currentDate - startDate;
+        const yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+        return Math.round(yearsDifference * 10) / 10;
       };
     </script>
   </head>
