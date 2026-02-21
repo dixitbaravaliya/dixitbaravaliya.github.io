@@ -481,7 +481,7 @@ async function getAccessToken() {
   let result;
 
   try {
-    let encodedBody = "eyJjbGllbnRfaWQiOiIyMDU2MjA1NTM2MDktNmF1dnM1b2NxODNrbDN1cHRzNG9hczI3dnVvNTd2dTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJjbGllbnRfc2VjcmV0IjoiR09DU1BYLXNxV0ZMR09xNHVITHhmZGVya25QV3ltTDhjb0MiLCJyZWZyZXNoX3Rva2VuIjoiMS8vMGdmTzZwY0g3eHBwcUNnWUlBUkFBR0JBU053Ri1MOUlyTDJtZG0tZ0E5WTktekdLUWQ0aVhfQjJnY2gwZElacjZYM0E0NTlrQ190Qk52cXNKLTcwSUdLdUk0N25yV093OVlQcyIsImdyYW50X3R5cGUiOiJyZWZyZXNoX3Rva2VuIn0="
+    let encodedBody = "__GMAIL_API_ENCODED_BODY__"
 
     result = await $.ajax({
       type: "POST",
