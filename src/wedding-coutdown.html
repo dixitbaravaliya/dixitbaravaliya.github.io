@@ -1126,7 +1126,6 @@
         const prompt = `Requested Tone: ${tone}. Original guest message to rewrite: "${baseText}"`;
         const aiResponse = await fetchGroqWithBackoff(prompt);
 
-        // Restore UI and set text
         if (aiResponse) {
           messageInput.value = aiResponse.trim();
         } else {
