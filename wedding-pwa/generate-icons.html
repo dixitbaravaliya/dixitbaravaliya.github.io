@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate PWA Icons</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #1a1a1a; color: #faf9f6; }
+    h1 { color: #D4AF37; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .card { background: #2a2a2a; border-radius: 8px; padding: 1rem; text-align: center; }
+    .card canvas { border: 1px solid #333; }
+    .card p { margin-top: 0.5rem; font-size: 0.8rem; color: #888; }
+    a { color: #D4AF37; }
+    button { background: #D4AF37; color: #1a1a1a; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; margin: 1rem 0.5rem; border-radius: 4px; font-weight: bold; }
+    button:hover { opacity: 0.9; }
+    .instructions { background: #2a2a2a; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #D4AF37; }
+  </style>
+</head>
+<body>
+  <h1>PWA Icon Generator — I & D Wedding</h1>
+  <div class="instructions">
+    <p><strong>Instructions:</strong></p>
+    <ol>
+      <li>Click <strong>"Generate All Icons"</strong> below</li>
+      <li>Click <strong>"Download All"</strong> to save each icon</li>
+      <li>Place the downloaded PNG files in the <code>wedding-pwa/icons/</code> directory</li>
+    </ol>
+  </div>
+  <button onclick="generateAll()">Generate All Icons</button>
+  <button onclick="downloadAll()" id="downloadBtn" disabled>Download All</button>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+    const maskableSizes = [192, 512];
+    const allCanvases = [];
+
+    function drawIcon(canvas, size, maskable = false) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = size;
+      canvas.height = size;
+
+      // Background
+      ctx.fillStyle = '#1a1a1a';
+      if (maskable) {
+        // Maskable icons need the safe zone (80% circle)
+        ctx.fillRect(0, 0, size, size);
+      } else {
+        // Round corners for regular icons
+        const radius = size * 0.15;
+        ctx.beginPath();
+        ctx.moveTo(radius, 0);
+        ctx.lineTo(size - radius, 0);
+        ctx.quadraticCurveTo(size, 0, size, radius);
+        ctx.lineTo(size, size - radius);
+        ctx.quadraticCurveTo(size, size, size - radius, size);
+        ctx.lineTo(radius, size);
+        ctx.quadraticCurveTo(0, size, 0, size - radius);
+        ctx.lineTo(0, radius);
+        ctx.quadraticCurveTo(0, 0, radius, 0);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // Scale factor
+      const s = size / 512;
+
+      // Draw the "D" logo centered
+      ctx.save();
+      // Center the 110x110 viewBox content in the canvas
+      const logoScale = (size * (maskable ? 0.5 : 0.65)) / 110;
+      const offsetX = (size - 110 * logoScale) / 2;
+      const offsetY = (size - 110 * logoScale) / 2 - (maskable ? 0 : size * 0.02);
+      ctx.translate(offsetX, offsetY);
+      ctx.scale(logoScale, logoScale);
+
+      ctx.fillStyle = '#D4AF37';
+      // Circle (dot of the D)
+      ctx.beginPath();
+      ctx.arc(26, 16, 9, 0, Math.PI * 2);
+      ctx.fill();
+
+      // The D letter path
+      ctx.beginPath();
+      ctx.moveTo(19, 32);
+      ctx.lineTo(33, 32);
+      ctx.lineTo(33, 75);
+      ctx.quadraticCurveTo(33, 84, 42, 84);
+      ctx.lineTo(65, 84);
+      ctx.quadraticCurveTo(82, 84, 82, 65);
+      ctx.quadraticCurveTo(82, 46, 65, 46);
+      ctx.lineTo(54, 46);
+      ctx.lineTo(54, 72);
+      ctx.lineTo(42, 72);
+      ctx.lineTo(42, 32);
+      ctx.lineTo(65, 32);
+      ctx.quadraticCurveTo(96, 32, 96, 65);
+      ctx.quadraticCurveTo(96, 98, 65, 98);
+      ctx.lineTo(38, 98);
+      ctx.quadraticCurveTo(19, 98, 19, 79);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+
+      // Add "I & D" text below logo for larger icons
+      if (size >= 128) {
+        ctx.fillStyle = '#D4AF37';
+        ctx.font = `${maskable ? 'normal' : 'italic'} ${size * 0.07}px "Georgia", serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('I & D', size / 2, size * (maskable ? 0.82 : 0.88));
+      }
+    }
+
+    function generateAll() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      allCanvases.length = 0;
+
+      // Regular icons
+      sizes.forEach(size => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const canvas = document.createElement('canvas');
+        canvas.style.maxWidth = '180px';
+        canvas.style.maxHeight = '180px';
+        drawIcon(canvas, size, false);
+        card.appendChild(canvas);
+        card.innerHTML += `<p>icon-${size}x${size}.png</p>`;
+        grid.appendChild(card);
+        allCanvases.push({ canvas, name: `icon-${size}x${size}.png` });
+      });
+
+      // Maskable icons
+      maskableSizes.forEach(size => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const canvas = document.createElement('canvas');
+        canvas.style.maxWidth = '180px';
+        canvas.style.maxHeight = '180px';
+        drawIcon(canvas, size, true);
+        card.appendChild(canvas);
+        card.innerHTML += `<p>icon-maskable-${size}x${size}.png</p>`;
+        grid.appendChild(card);
+        allCanvases.push({ canvas, name: `icon-maskable-${size}x${size}.png` });
+      });
+
+      document.getElementById('downloadBtn').disabled = false;
+    }
+
+    function downloadAll() {
+      allCanvases.forEach(({ canvas, name }) => {
+        const link = document.createElement('a');
+        link.download = name;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>

@@ -9,6 +9,17 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg viewBox='0 0 110 110' fill='%23D4AF37' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='26' cy='16' r='9'/%3E%3Cpath d='M 19 32 H 33 V 75 Q 33 84 42 84 H 65 Q 82 84 82 65 Q 82 46 65 46 H 54 V 72 H 42 V 32 H 65 Q 96 32 96 65 Q 96 98 65 98 H 38 Q 19 98 19 79 Z'/%3E%3C/svg%3E"
     />
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/wedding-pwa/manifest.json" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="description" content="Countdown to Ishita & Dixit's wedding celebration" />
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="I & D Wedding" />
+    <link rel="apple-touch-icon" href="/wedding-pwa/icons/apple-touch-icon.png" />
+    <!-- Android PWA -->
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -966,7 +977,7 @@
                   Authorization: `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify({
-                  model: "llama-3.3-70b-versatile",
+                  model: "meta-llama/llama-4-scout-17b-16e-instruct",
                   messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: prompt },
@@ -1167,6 +1178,128 @@
           });
         });
       });
+    </script>
+    <!-- PWA: Service Worker Registration & Install Prompt -->
+    <script>
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/wedding-sw.js', { scope: '/src/' })
+            .then((registration) => {
+              console.log('[PWA] Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+              console.warn('[PWA] Service Worker registration failed:', error);
+            });
+        });
+      }
+
+      // Android: beforeinstallprompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallBanner('android');
+      });
+
+      // iOS: detect Safari and show manual install instructions
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches ||
+                                  window.navigator.standalone === true;
+      if (isIOS && !isInStandaloneMode) {
+        window.addEventListener('load', () => {
+          setTimeout(() => showInstallBanner('ios'), 3000);
+        });
+      }
+
+      function showInstallBanner(platform) {
+        // Don't show if already dismissed in this session
+        if (sessionStorage.getItem('pwa-install-dismissed')) return;
+
+        const banner = document.createElement('div');
+        banner.id = 'pwa-install-banner';
+        banner.style.cssText = `
+          position: fixed; bottom: 0; left: 0; right: 0; z-index: 10000;
+          background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+          color: #FAF9F6; padding: 16px 20px;
+          display: flex; align-items: center; justify-content: space-between; gap: 12px;
+          font-family: "Montserrat", sans-serif;
+          box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+          border-top: 1px solid rgba(212,175,55,0.3);
+          animation: slideUp 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+          }
+        `;
+        document.head.appendChild(style);
+
+        if (platform === 'ios') {
+          banner.innerHTML = `
+            <div style="flex:1; min-width:0;">
+              <p style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#D4AF37; margin:0 0 4px 0;">
+                Add to Home Screen
+              </p>
+              <p style="font-size:11px; color:#999; margin:0; line-height:1.4;">
+                Tap <span style="display:inline-block; vertical-align:middle;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+                  </svg>
+                </span> then <strong style="color:#D4AF37">"Add to Home Screen"</strong>
+              </p>
+            </div>
+            <button onclick="dismissInstallBanner()" style="background:none; border:1px solid rgba(212,175,55,0.4); color:#D4AF37; padding:6px 14px; font-size:10px; text-transform:uppercase; letter-spacing:0.15em; cursor:pointer; border-radius:2px; white-space:nowrap; font-family:inherit;">
+              Got it
+            </button>
+          `;
+        } else {
+          banner.innerHTML = `
+            <div style="flex:1; min-width:0;">
+              <p style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#D4AF37; margin:0 0 4px 0;">
+                Install App
+              </p>
+              <p style="font-size:11px; color:#999; margin:0;">
+                Add this wedding countdown to your home screen
+              </p>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button onclick="installPWA()" style="background:#D4AF37; border:none; color:#1a1a1a; padding:8px 16px; font-size:10px; text-transform:uppercase; letter-spacing:0.15em; cursor:pointer; font-weight:600; border-radius:2px; white-space:nowrap; font-family:inherit;">
+                Install
+              </button>
+              <button onclick="dismissInstallBanner()" style="background:none; border:none; color:#666; padding:8px; cursor:pointer; font-size:18px; line-height:1;">
+                ×
+              </button>
+            </div>
+          `;
+        }
+
+        document.body.appendChild(banner);
+      }
+
+      function installPWA() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            deferredPrompt = null;
+            dismissInstallBanner();
+          });
+        }
+      }
+
+      function dismissInstallBanner() {
+        const banner = document.getElementById('pwa-install-banner');
+        if (banner) {
+          banner.style.transition = 'transform 0.3s ease';
+          banner.style.transform = 'translateY(100%)';
+          setTimeout(() => banner.remove(), 300);
+        }
+        sessionStorage.setItem('pwa-install-dismissed', 'true');
+      }
     </script>
   </body>
 </html>
